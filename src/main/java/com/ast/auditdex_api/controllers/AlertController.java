@@ -35,13 +35,13 @@ public class AlertController {
     public ResponseEntity<AlertDTO> create(@RequestBody AlertDTO dto) {
         return ResponseEntity.ok(alertService.save(dto));
     }
-
+/*
     @PutMapping("/{id}")
     public ResponseEntity<AlertDTO> update(@PathVariable Long id, @RequestBody AlertDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(alertService.update(dto));
     }
-
+*/
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         alertService.deleteById(id);
