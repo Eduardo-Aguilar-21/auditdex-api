@@ -1,5 +1,6 @@
 package com.ast.auditdex_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "company")
+@Table(name = "companies")
 public class CompanyModel {
 
     @Id
@@ -29,18 +30,25 @@ public class CompanyModel {
     private String phone;
     private String email;
 
+    @Column(nullable = false)
+    private Boolean active = true;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserModel> users;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AuditModel> audits;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<AuditExecutionModel> auditExecutions;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;
 
     @UpdateTimestamp
     private ZonedDateTime updatedAt;
-
-    // Relación opcional con usuarios
-    @OneToMany(mappedBy = "company")
-    private List<UserModel> users;
-
-    // Relación opcional con auditorías
-    @OneToMany(mappedBy = "company")
-    private List<AuditModel> audits;
 }

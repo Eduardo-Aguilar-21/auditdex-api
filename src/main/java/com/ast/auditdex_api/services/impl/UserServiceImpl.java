@@ -72,4 +72,22 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDTO> findByUsername(String username) {
         return userRepository.findByUsername(username).map(UserMapper::toDTO);
     }
+
+    @Override
+    public Optional<UserDTO> findByEmail(String email) {
+        return userRepository.findByEmail(email).map(UserMapper::toDTO);
+    }
+
+    @Override
+    public List<UserDTO> findByCompanyId(Long companyId) {
+        return userRepository.findByCompanyId(companyId)
+                .stream()
+                .map(UserMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<UserDTO> findByCompanyId(Long companyId, Pageable pageable) {
+        return userRepository.findByCompanyId(companyId, pageable).map(UserMapper::toDTO);
+    }
 }

@@ -22,4 +22,10 @@ public interface UserService {
     void deleteById(Long id);
 
     Optional<UserDTO> findByUsername(String username);
+
+    Optional<UserDTO> findByEmail(String email);
+
+    List<UserDTO> findByCompanyId(Long companyId);
+
+    Page<UserDTO> findByCompanyId(Long companyId, Pageable pageable);
 }

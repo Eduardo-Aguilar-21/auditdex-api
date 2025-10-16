@@ -1,6 +1,7 @@
 package com.ast.auditdex_api.services;
 
 import com.ast.auditdex_api.dto.AuditTemplateFavoriteDTO;
+import com.ast.auditdex_api.models.AuditModel;
 import com.ast.auditdex_api.models.AuditTemplateFavoriteModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +27,7 @@ public interface AuditTemplateFavoriteService {
 
     Page<AuditTemplateFavoriteModel> findFavoritesByCompany(Long companyId, Pageable pageable);
 
-    Optional<AuditTemplateFavoriteDTO> findByCompanyAndTemplate(Long companyId, Long templateId);
+    Optional<AuditTemplateFavoriteDTO> findByCompanyIdAndAuditId(Long companyId, Long templateId);
+
+    List<AuditModel> findFavoriteAuditsByCompanyId(Long companyId);
 }

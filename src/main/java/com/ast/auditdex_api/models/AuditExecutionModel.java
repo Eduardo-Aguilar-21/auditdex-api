@@ -14,12 +14,31 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "AuditExecution")
+@Table(name = "audit_executions",indexes = {
+        @Index(name = "idx_execution_audit_id", columnList = "audit_id"),
+        @Index(name = "idx_execution_user_id", columnList = "user_id"),
+        @Index(name = "idx_execution_company_id", columnList = "company_id"),
+        @Index(name = "idx_execution_status", columnList = "status"),
+        @Index(name = "idx_execution_created_at", columnList = "createdAt")
+})
 public class AuditExecutionModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private AuditStatus status;
+
+    // optional: If you want to customize the name
+    private String executionTitle;
+
+    // auditor's general observations
+    private String notes;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String resultJson;
 
     @ManyToOne
     @JoinColumn(name = "audit_id", nullable = false)
@@ -29,8 +48,9 @@ public class AuditExecutionModel {
     @JoinColumn(name = "user_id")
     private UserModel auditor;
 
-    @Enumerated(EnumType.STRING)
-    private AuditStatus status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyModel company;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

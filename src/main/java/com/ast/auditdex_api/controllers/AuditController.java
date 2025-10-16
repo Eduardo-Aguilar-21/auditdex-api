@@ -76,4 +76,34 @@ public class AuditController {
     public ResponseEntity<Page<AuditDTO>> getAuditsByTypePaged(@PathVariable AuditType type, Pageable pageable) {
         return ResponseEntity.ok(auditService.findByType(type, pageable));
     }
+
+    @GetMapping("/global")
+    public ResponseEntity<List<AuditDTO>> getGlobalAudits() {
+        return ResponseEntity.ok(auditService.findByGlobalTrue());
+    }
+
+    @GetMapping("/global/page")
+    public ResponseEntity<Page<AuditDTO>> getGlobalAuditsPaged(Pageable pageable) {
+        return ResponseEntity.ok(auditService.findByGlobalTrue(pageable));
+    }
+
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<List<AuditDTO>> getAuditsByCompany(@PathVariable Long companyId) {
+        return ResponseEntity.ok(auditService.findByCompanyId(companyId));
+    }
+
+    @GetMapping("/company/{companyId}/page")
+    public ResponseEntity<Page<AuditDTO>> getAuditsByCompanyPaged(@PathVariable Long companyId, Pageable pageable) {
+        return ResponseEntity.ok(auditService.findByCompanyId(companyId, pageable));
+    }
+
+    @GetMapping("/visible/{companyId}")
+    public ResponseEntity<List<AuditDTO>> getVisibleAuditsByCompany(@PathVariable Long companyId) {
+        return ResponseEntity.ok(auditService.findVisibleByCompanyId(companyId));
+    }
+
+    @GetMapping("/visible/{companyId}/page")
+    public ResponseEntity<Page<AuditDTO>> getVisibleAuditsByCompanyPaged(@PathVariable Long companyId, Pageable pageable) {
+        return ResponseEntity.ok(auditService.findVisibleByCompanyId(companyId, pageable));
+    }
 }

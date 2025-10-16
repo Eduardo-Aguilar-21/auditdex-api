@@ -2,6 +2,7 @@ package com.ast.auditdex_api.services.impl;
 
 import com.ast.auditdex_api.dto.AuditTemplateFavoriteDTO;
 import com.ast.auditdex_api.mappers.AuditTemplateFavoriteMapper;
+import com.ast.auditdex_api.models.AuditModel;
 import com.ast.auditdex_api.models.AuditTemplateFavoriteModel;
 import com.ast.auditdex_api.repositories.AuditTemplateFavoriteRepository;
 import com.ast.auditdex_api.services.AuditTemplateFavoriteService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -74,8 +76,15 @@ public class AuditTemplateFavoriteServiceImpl implements AuditTemplateFavoriteSe
     }
 
     @Override
-    public Optional<AuditTemplateFavoriteDTO> findByCompanyAndTemplate(Long companyId, Long templateId) {
-        return repository.findByCompanyIdAndTemplateId(companyId, templateId)
+    public Optional<AuditTemplateFavoriteDTO> findByCompanyIdAndAuditId(Long companyId, Long templateId) {
+        return repository.findByCompanyIdAndAuditId(companyId, templateId)
                 .map(AuditTemplateFavoriteMapper::toDTO);
+    }
+
+    public List<AuditModel> findFavoriteAuditsByCompanyId(Long companyId) {
+        return repository.findFavoriteAuditsByCompanyId(companyId)
+                .stream()
+                .map(obj -> (AuditModel) obj)
+                .collect(Collectors.toList());
     }
 }

@@ -98,4 +98,46 @@ public class AuditServiceImpl implements AuditService {
         return auditRepository.findByAuditType(type, pageable)
                 .map(AuditMapper::toDTO);
     }
+
+    @Override
+    public List<AuditDTO> findByGlobalTrue() {
+        return auditRepository.findByGlobalTrue()
+                .stream()
+                .map(AuditMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AuditDTO> findByGlobalTrue(Pageable pageable) {
+        return auditRepository.findByGlobalTrue(pageable)
+                .map(AuditMapper::toDTO);
+    }
+
+    @Override
+    public List<AuditDTO> findByCompanyId(Long companyId) {
+        return auditRepository.findByCompanyId(companyId)
+                .stream()
+                .map(AuditMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AuditDTO> findByCompanyId(Long companyId, Pageable pageable) {
+        return auditRepository.findByCompanyId(companyId, pageable)
+                .map(AuditMapper::toDTO);
+    }
+
+    @Override
+    public List<AuditDTO> findVisibleByCompanyId(Long companyId) {
+        return auditRepository.findVisibleByCompanyId(companyId)
+                .stream()
+                .map(AuditMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AuditDTO> findVisibleByCompanyId(Long companyId, Pageable pageable) {
+        return auditRepository.findVisibleByCompanyId(companyId, pageable)
+                .map(AuditMapper::toDTO);
+    }
 }

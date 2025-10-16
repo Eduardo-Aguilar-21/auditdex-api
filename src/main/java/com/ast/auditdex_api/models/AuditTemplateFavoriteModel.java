@@ -1,5 +1,6 @@
 package com.ast.auditdex_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,23 +14,30 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "AuditTemplateFavorite")
+@Table(name = "audit_template_favorites",
+        indexes = {
+                @Index(name = "idx_favorite_company_id", columnList = "company_id"),
+                @Index(name = "idx_favorite_audit_id", columnList = "audit_id"),
+                @Index(name = "idx_favorite_company_audit", columnList = "company_id, audit_id", unique = true),
+                @Index(name = "idx_favorite_created_at", columnList = "createdAt")
+        })
 public class AuditTemplateFavoriteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
-    private CompanyModel company;
-
-    @ManyToOne
-    @JoinColumn(name = "template_id", nullable = false)
-    private AuditModel template;
-
     @Column(nullable = false)
     private boolean favorite = true;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false)
+    private CompanyModel company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "audit_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private AuditModel audit;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

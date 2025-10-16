@@ -1,6 +1,7 @@
 package com.ast.auditdex_api.controllers;
 
 import com.ast.auditdex_api.dto.AuditTemplateFavoriteDTO;
+import com.ast.auditdex_api.models.AuditModel;
 import com.ast.auditdex_api.models.AuditTemplateFavoriteModel;
 import com.ast.auditdex_api.services.AuditTemplateFavoriteService;
 import lombok.RequiredArgsConstructor;
@@ -63,13 +64,21 @@ public class AuditTemplateFavoriteController {
         return ResponseEntity.ok(service.findFavoritesByCompany(companyId, pageable));
     }
 
-    @GetMapping("/company/{companyId}/template/{templateId}")
+    @GetMapping("/company/{companyId}/audit/{auditId}")
     public ResponseEntity<AuditTemplateFavoriteDTO> getByCompanyAndTemplate(
             @PathVariable Long companyId,
-            @PathVariable Long templateId
+            @PathVariable Long auditId
     ) {
-        return service.findByCompanyAndTemplate(companyId, templateId)
+        return service.findByCompanyIdAndAuditId(companyId, auditId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/company/{companyId}/audits")
+    public ResponseEntity<List<AuditModel>> getFavoriteAuditsByCompany(@PathVariable Long companyId) {
+        List<AuditModel> favorites = service.findFavoriteAuditsByCompanyId(companyId);
+        return favorites.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(favorites);
     }
 }
