@@ -85,4 +85,16 @@ public class AuditExecutionServiceImpl implements AuditExecutionService {
     public Page<AuditExecutionDTO> findByStatus(AuditStatus status, Pageable pageable) {
         return repository.findByStatus(status, pageable).map(AuditExecutionMapper::toDTO);
     }
+
+    @Override
+    public List<AuditExecutionDTO> findByCompanyId(Long companyId) {
+        return repository.findByCompanyId(companyId).stream()
+                .map(AuditExecutionMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AuditExecutionDTO> findByCompanyId(Long companyId, Pageable pageable) {
+        return repository.findByCompanyId(companyId, pageable).map(AuditExecutionMapper::toDTO);
+    }
 }

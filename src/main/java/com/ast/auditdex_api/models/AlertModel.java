@@ -16,13 +16,22 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Alert")
+@Table(
+        name = "alerts",
+        indexes = {
+                @Index(name = "idx_alert_audit_id", columnList = "audit_id"),
+                @Index(name = "idx_alert_execution_id", columnList = "execution_id"),
+                @Index(name = "idx_alert_company_id", columnList = "company_id"),
+                @Index(name = "idx_alert_user_id", columnList = "user_id"),
+                @Index(name = "idx_alert_read", columnList = "read"),
+                @Index(name = "idx_alert_created_at", columnList = "createdAt")
+        }
+)
 public class AlertModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Tipo de alerta (ej: vencimiento, hallazgo, recordatorio)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AlertType type;
@@ -37,12 +46,10 @@ public class AlertModel {
     @Column(nullable = false, length = 500)
     private String observation;
 
-    // Relación opcional con auditoría
     @ManyToOne
     @JoinColumn(name = "audit_id")
     private AuditModel audit;
 
-    // Relación opcional con ejecución de auditoría
     @ManyToOne
     @JoinColumn(name = "execution_id")
     private AuditExecutionModel execution;
@@ -50,6 +57,10 @@ public class AlertModel {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyModel company;
 
     // Estado: si ya fue vista / atendida
     @Column(nullable = false)

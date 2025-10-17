@@ -3,6 +3,7 @@ package com.ast.auditdex_api.mappers;
 import com.ast.auditdex_api.dto.AuditExecutionDTO;
 import com.ast.auditdex_api.models.AuditExecutionModel;
 import com.ast.auditdex_api.models.AuditModel;
+import com.ast.auditdex_api.models.CompanyModel;
 import com.ast.auditdex_api.models.UserModel;
 
 public class AuditExecutionMapper {
@@ -15,6 +16,7 @@ public class AuditExecutionMapper {
         dto.setAuditId(model.getAudit() != null ? model.getAudit().getId() : null);
         dto.setAuditorId(model.getAuditor() != null ? model.getAuditor().getId() : null);
         dto.setStatus(model.getStatus());
+        dto.setCompanyId(model.getCompany() != null ? model.getCompany().getId() : null);
         dto.setCreatedAt(model.getCreatedAt());
         dto.setUpdatedAt(model.getUpdatedAt());
 
@@ -37,6 +39,12 @@ public class AuditExecutionMapper {
             UserModel auditor = new UserModel();
             auditor.setId(dto.getAuditorId());
             model.setAuditor(auditor);
+        }
+
+        if (dto.getCompanyId() != null) {
+            CompanyModel company = new CompanyModel();
+            company.setId(dto.getCompanyId());
+            model.setCompany(company);
         }
 
         model.setStatus(dto.getStatus());

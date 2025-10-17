@@ -1,6 +1,7 @@
 package com.ast.auditdex_api.models;
 
 import com.ast.auditdex_api.enums.AuditStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -51,6 +53,14 @@ public class AuditExecutionModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyModel company;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "execution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlertModel> alerts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "execution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AttachmentModel> attachments;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

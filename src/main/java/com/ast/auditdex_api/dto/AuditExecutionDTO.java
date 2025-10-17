@@ -15,6 +15,7 @@ public class AuditExecutionDTO {
     private Long auditId;
     private Long auditorId;
     private AuditStatus status;
+    private Long companyId;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
 }

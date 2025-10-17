@@ -2,6 +2,7 @@ package com.ast.auditdex_api.services;
 
 import com.ast.auditdex_api.dto.AuditExecutionDTO;
 import com.ast.auditdex_api.enums.AuditStatus;
+import com.ast.auditdex_api.models.AuditExecutionModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,4 +24,7 @@ public interface AuditExecutionService {
 
     List<AuditExecutionDTO> findByStatus(AuditStatus status);
     Page<AuditExecutionDTO> findByStatus(AuditStatus status, Pageable pageable);
+
+    List<AuditExecutionDTO> findByCompanyId(Long companyId);
+    Page<AuditExecutionDTO> findByCompanyId(Long companyId, Pageable pageable);
 }

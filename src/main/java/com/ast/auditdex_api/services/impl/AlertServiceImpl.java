@@ -169,4 +169,46 @@ public class AlertServiceImpl implements AlertService {
         alert.setRead(true);
         return AlertMapper.toDTO(alertRepository.save(alert));
     }
+
+    @Override
+    public List<AlertDTO> findByCompanyId(Long userId) {
+        return alertRepository.findByCompanyId(userId)
+                .stream()
+                .map(AlertMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AlertDTO> findByCompanyId(Long companyId, Pageable pageable) {
+        return alertRepository.findByUserIdAndReadFalse(companyId, pageable)
+                .map(AlertMapper::toDTO);
+    }
+
+    @Override
+    public List<AlertDTO> findByCompanyIdAndReadFalse(Long companyId) {
+        return alertRepository.findByCompanyIdAndReadFalse(companyId)
+                .stream()
+                .map(AlertMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AlertDTO> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable) {
+        return alertRepository.findByCompanyIdAndReadFalse(companyId, pageable)
+                .map(AlertMapper::toDTO);
+    }
+
+    @Override
+    public List<AlertDTO> findByAuditIdAndReadFalse(Long auditId) {
+        return alertRepository.findByAuditIdAndReadFalse(auditId)
+                .stream()
+                .map(AlertMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<AlertDTO> findByAuditIdAndReadFalse(Long auditId, Pageable pageable) {
+        return alertRepository.findByAuditIdAndReadFalse(auditId, pageable)
+                .map(AlertMapper::toDTO);
+    }
 }

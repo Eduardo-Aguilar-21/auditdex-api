@@ -3,6 +3,7 @@ package com.ast.auditdex_api.services;
 import com.ast.auditdex_api.dto.AlertDTO;
 import com.ast.auditdex_api.enums.AlertSeverity;
 import com.ast.auditdex_api.enums.AlertType;
+import com.ast.auditdex_api.models.AlertModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,7 +20,6 @@ public interface AlertService {
     AlertDTO save(AlertDTO dto);
     AlertDTO update(AlertDTO dto);
     void deleteById(Long id);
-
 
     List<AlertDTO> findByUser(Long userId);
     Page<AlertDTO> findByUser(Long userId, Pageable pageable);
@@ -40,4 +40,13 @@ public interface AlertService {
     Page<AlertDTO> findUnreadByUser(Long userId, Pageable pageable);
 
     AlertDTO markAsRead(Long id);
+
+    List<AlertDTO> findByCompanyId(Long companyId);
+    Page<AlertDTO> findByCompanyId(Long companyId, Pageable pageable);
+
+    List<AlertDTO> findByCompanyIdAndReadFalse(Long companyId);
+    Page<AlertDTO> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable);
+
+    List<AlertDTO> findByAuditIdAndReadFalse(Long auditId);
+    Page<AlertDTO> findByAuditIdAndReadFalse(Long auditId, Pageable pageable);
 }

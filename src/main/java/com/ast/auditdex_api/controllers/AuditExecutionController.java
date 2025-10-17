@@ -6,6 +6,8 @@ import com.ast.auditdex_api.services.AuditExecutionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -34,8 +36,8 @@ public class AuditExecutionController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/paged")
-    public ResponseEntity<Page<AuditExecutionDTO>> getAllPaged(Pageable pageable) {
+    @GetMapping("/page")
+    public ResponseEntity<Page<AuditExecutionDTO>> getAllPaged(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
@@ -51,7 +53,8 @@ public class AuditExecutionController {
     }
 
     @GetMapping("/audit/{auditId}/paged")
-    public ResponseEntity<Page<AuditExecutionDTO>> getByAuditIdPaged(@PathVariable Long auditId, Pageable pageable) {
+    public ResponseEntity<Page<AuditExecutionDTO>> getByAuditIdPaged(@PathVariable Long auditId,
+                                                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findByAuditId(auditId, pageable));
     }
 
@@ -60,8 +63,9 @@ public class AuditExecutionController {
         return ResponseEntity.ok(service.findByAuditorId(auditorId));
     }
 
-    @GetMapping("/auditor/{auditorId}/paged")
-    public ResponseEntity<Page<AuditExecutionDTO>> getByAuditorIdPaged(@PathVariable Long auditorId, Pageable pageable) {
+    @GetMapping("/auditor/{auditorId}/")
+    public ResponseEntity<Page<AuditExecutionDTO>> getByAuditorIdPaged(@PathVariable Long auditorId,
+                                                                       @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findByAuditorId(auditorId, pageable));
     }
 
@@ -70,8 +74,20 @@ public class AuditExecutionController {
         return ResponseEntity.ok(service.findByStatus(status));
     }
 
-    @GetMapping("/status/{status}/paged")
-    public ResponseEntity<Page<AuditExecutionDTO>> getByStatusPaged(@PathVariable AuditStatus status, Pageable pageable) {
+    @GetMapping("/status/{status}/page")
+    public ResponseEntity<Page<AuditExecutionDTO>> getByStatusPaged(@PathVariable AuditStatus status,
+                                                                    @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findByStatus(status, pageable));
+    }
+
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<List<AuditExecutionDTO>> getByCompany(@PathVariable Long companyId) {
+        return ResponseEntity.ok(service.findByCompanyId(companyId));
+    }
+
+    @GetMapping("/company/{status}/page")
+    public ResponseEntity<Page<AuditExecutionDTO>> getByCompanyPaged(@PathVariable Long companyId,
+                                                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(service.findByCompanyId(companyId, pageable));
     }
 }

@@ -5,9 +5,11 @@ import com.ast.auditdex_api.enums.AuditStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AuditExecutionRepository extends JpaRepository<AuditExecutionModel, Long> {
 
     List<AuditExecutionModel> findByAuditId(Long auditId);
@@ -18,4 +20,7 @@ public interface AuditExecutionRepository extends JpaRepository<AuditExecutionMo
 
     List<AuditExecutionModel> findByStatus(AuditStatus status);
     Page<AuditExecutionModel> findByStatus(AuditStatus status, Pageable pageable);
+
+    List<AuditExecutionModel> findByCompanyId(Long companyId);
+    Page<AuditExecutionModel> findByCompanyId(Long companyId, Pageable pageable);
 }

@@ -58,6 +58,10 @@ public class UserModel {
     @OneToMany(mappedBy = "auditor", cascade = CascadeType.ALL)
     private List<AuditExecutionModel> auditExecutions;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AlertModel> alerts;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;

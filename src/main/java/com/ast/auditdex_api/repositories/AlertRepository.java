@@ -6,9 +6,11 @@ import com.ast.auditdex_api.models.AlertModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AlertRepository extends JpaRepository<AlertModel, Long> {
     List<AlertModel> findByUserId(Long userId);
     Page<AlertModel> findByUserId(Long userId, Pageable pageable);
@@ -27,4 +29,13 @@ public interface AlertRepository extends JpaRepository<AlertModel, Long> {
 
     List<AlertModel> findByUserIdAndReadFalse(Long userId);
     Page<AlertModel> findByUserIdAndReadFalse(Long userId, Pageable pageable);
+
+    List<AlertModel> findByCompanyId(Long companyId);
+    Page<AlertModel> findByCompanyId(Long companyId, Pageable pageable);
+
+    List<AlertModel> findByCompanyIdAndReadFalse(Long companyId);
+    Page<AlertModel> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable);
+
+    List<AlertModel> findByAuditIdAndReadFalse(Long auditId);
+    Page<AlertModel> findByAuditIdAndReadFalse(Long auditId, Pageable pageable);
 }

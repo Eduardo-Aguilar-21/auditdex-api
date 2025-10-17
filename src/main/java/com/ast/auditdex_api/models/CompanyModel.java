@@ -45,6 +45,10 @@ public class CompanyModel {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<AuditExecutionModel> auditExecutions;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<AlertModel> alerts;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;

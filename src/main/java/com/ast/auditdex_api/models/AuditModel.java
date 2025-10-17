@@ -60,6 +60,10 @@ public class AuditModel {
     @OneToMany(mappedBy = "audit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AuditExecutionModel> executions;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "audit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlertModel> alerts;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;
