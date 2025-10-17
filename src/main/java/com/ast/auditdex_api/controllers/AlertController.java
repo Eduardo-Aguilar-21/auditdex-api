@@ -140,24 +140,24 @@ public class AlertController {
 
     @GetMapping("/company/{companyId}/unread")
     public ResponseEntity<List<AlertDTO>> getUnreadByCompany(@PathVariable Long companyId) {
-        return ResponseEntity.ok(alertService.findByCompanyIdAndReadFalse(companyId));
+        return ResponseEntity.ok(alertService.findByCompanyIdAndIsReadFalse(companyId));
     }
 
     @GetMapping("/company/{companyId}/unread/page")
     public ResponseEntity<Page<AlertDTO>> getUnreadByCompany(@PathVariable Long companyId,
                                                              @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok(alertService.findByCompanyIdAndReadFalse(companyId, pageable));
+        return ResponseEntity.ok(alertService.findByCompanyIdAndIsReadFalse(companyId, pageable));
     }
 
     @GetMapping("/audit/{auditId}/unread")
     public ResponseEntity<List<AlertDTO>> getAllUnreadByAudit(@PathVariable Long auditId) {
-        return ResponseEntity.ok(alertService.findByAuditIdAndReadFalse(auditId));
+        return ResponseEntity.ok(alertService.findByAuditIdAndIsReadFalse(auditId));
     }
 
     @GetMapping("/audit/{auditId}/unread/page")
     public ResponseEntity<Page<AlertDTO>> getUnreadByAudit(@PathVariable Long auditId,
                                                            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok(alertService.findByAuditIdAndReadFalse(auditId, pageable));
+        return ResponseEntity.ok(alertService.findByAuditIdAndIsReadFalse(auditId, pageable));
     }
 
 }

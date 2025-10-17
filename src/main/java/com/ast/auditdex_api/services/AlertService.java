@@ -44,9 +44,9 @@ public interface AlertService {
     List<AlertDTO> findByCompanyId(Long companyId);
     Page<AlertDTO> findByCompanyId(Long companyId, Pageable pageable);
 
-    List<AlertDTO> findByCompanyIdAndReadFalse(Long companyId);
-    Page<AlertDTO> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable);
+    List<AlertDTO> findByCompanyIdAndIsReadFalse(Long companyId);
+    Page<AlertDTO> findByCompanyIdAndIsReadFalse(Long companyId, Pageable pageable);
 
-    List<AlertDTO> findByAuditIdAndReadFalse(Long auditId);
-    Page<AlertDTO> findByAuditIdAndReadFalse(Long auditId, Pageable pageable);
+    List<AlertDTO> findByAuditIdAndIsReadFalse(Long auditId);
+    Page<AlertDTO> findByAuditIdAndIsReadFalse(Long auditId, Pageable pageable);
 }

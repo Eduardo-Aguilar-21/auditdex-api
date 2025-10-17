@@ -64,7 +64,7 @@ public class AlertModel {
 
     // Estado: si ya fue vista / atendida
     @Column(nullable = false)
-    private boolean read = false;
+    private boolean isRead = false;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

@@ -20,7 +20,7 @@ public class AlertDTO {
     private Long auditId;
     private Long executionId;
     private Long userId;
-    private boolean read;
+    private boolean isRead;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
 }

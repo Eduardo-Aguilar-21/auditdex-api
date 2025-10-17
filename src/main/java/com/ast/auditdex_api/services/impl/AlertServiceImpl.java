@@ -149,7 +149,7 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public List<AlertDTO> findUnreadByUser(Long userId) {
-        return alertRepository.findByUserIdAndReadFalse(userId)
+        return alertRepository.findByUserIdAndIsReadFalse(userId)
                 .stream()
                 .map(AlertMapper::toDTO)
                 .collect(Collectors.toList());
@@ -157,7 +157,7 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public Page<AlertDTO> findUnreadByUser(Long userId, Pageable pageable) {
-        return alertRepository.findByUserIdAndReadFalse(userId, pageable)
+        return alertRepository.findByUserIdAndIsReadFalse(userId, pageable)
                 .map(AlertMapper::toDTO);
     }
 
@@ -180,35 +180,35 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public Page<AlertDTO> findByCompanyId(Long companyId, Pageable pageable) {
-        return alertRepository.findByUserIdAndReadFalse(companyId, pageable)
+        return alertRepository.findByUserIdAndIsReadFalse(companyId, pageable)
                 .map(AlertMapper::toDTO);
     }
 
     @Override
-    public List<AlertDTO> findByCompanyIdAndReadFalse(Long companyId) {
-        return alertRepository.findByCompanyIdAndReadFalse(companyId)
+    public List<AlertDTO> findByCompanyIdAndIsReadFalse(Long companyId) {
+        return alertRepository.findByCompanyIdAndIsReadFalse(companyId)
                 .stream()
                 .map(AlertMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Page<AlertDTO> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable) {
-        return alertRepository.findByCompanyIdAndReadFalse(companyId, pageable)
+    public Page<AlertDTO> findByCompanyIdAndIsReadFalse(Long companyId, Pageable pageable) {
+        return alertRepository.findByCompanyIdAndIsReadFalse(companyId, pageable)
                 .map(AlertMapper::toDTO);
     }
 
     @Override
-    public List<AlertDTO> findByAuditIdAndReadFalse(Long auditId) {
-        return alertRepository.findByAuditIdAndReadFalse(auditId)
+    public List<AlertDTO> findByAuditIdAndIsReadFalse(Long auditId) {
+        return alertRepository.findByAuditIdAndIsReadFalse(auditId)
                 .stream()
                 .map(AlertMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Page<AlertDTO> findByAuditIdAndReadFalse(Long auditId, Pageable pageable) {
-        return alertRepository.findByAuditIdAndReadFalse(auditId, pageable)
+    public Page<AlertDTO> findByAuditIdAndIsReadFalse(Long auditId, Pageable pageable) {
+        return alertRepository.findByAuditIdAndIsReadFalse(auditId, pageable)
                 .map(AlertMapper::toDTO);
     }
 }

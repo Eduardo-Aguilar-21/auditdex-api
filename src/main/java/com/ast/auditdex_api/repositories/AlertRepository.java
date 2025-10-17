@@ -27,15 +27,15 @@ public interface AlertRepository extends JpaRepository<AlertModel, Long> {
     List<AlertModel> findBySeverity(AlertSeverity severity);
     Page<AlertModel> findBySeverity(AlertSeverity severity, Pageable pageable);
 
-    List<AlertModel> findByUserIdAndReadFalse(Long userId);
-    Page<AlertModel> findByUserIdAndReadFalse(Long userId, Pageable pageable);
+    List<AlertModel> findByUserIdAndIsReadFalse(Long userId);
+    Page<AlertModel> findByUserIdAndIsReadFalse(Long userId, Pageable pageable);
 
     List<AlertModel> findByCompanyId(Long companyId);
     Page<AlertModel> findByCompanyId(Long companyId, Pageable pageable);
 
-    List<AlertModel> findByCompanyIdAndReadFalse(Long companyId);
-    Page<AlertModel> findByCompanyIdAndReadFalse(Long companyId, Pageable pageable);
+    List<AlertModel> findByCompanyIdAndIsReadFalse(Long companyId);
+    Page<AlertModel> findByCompanyIdAndIsReadFalse(Long companyId, Pageable pageable);
 
-    List<AlertModel> findByAuditIdAndReadFalse(Long auditId);
-    Page<AlertModel> findByAuditIdAndReadFalse(Long auditId, Pageable pageable);
+    List<AlertModel> findByAuditIdAndIsReadFalse(Long auditId);
+    Page<AlertModel> findByAuditIdAndIsReadFalse(Long auditId, Pageable pageable);
 }
