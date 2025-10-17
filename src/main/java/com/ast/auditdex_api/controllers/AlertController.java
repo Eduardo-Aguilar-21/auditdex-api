@@ -105,7 +105,7 @@ public class AlertController {
         return ResponseEntity.ok(alertService.findBySeverity(severity));
     }
 
-    @GetMapping("/severity/{severity}")
+    @GetMapping("/severity/{severity}/page")
     public ResponseEntity<Page<AlertDTO>> getBySeverityPage(@PathVariable AlertSeverity severity,
                                                             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(alertService.findBySeverity(severity, pageable));
