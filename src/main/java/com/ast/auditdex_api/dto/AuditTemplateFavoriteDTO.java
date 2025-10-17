@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 public class AuditTemplateFavoriteDTO {
     private Long id;
     private Long companyId;
-    private Long templateId;
+    private Long AuditId;
     private boolean favorite;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;

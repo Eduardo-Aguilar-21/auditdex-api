@@ -13,7 +13,7 @@ public class AuditTemplateFavoriteMapper {
         AuditTemplateFavoriteDTO dto = new AuditTemplateFavoriteDTO();
         dto.setId(model.getId());
         dto.setCompanyId(model.getCompany().getId());
-        dto.setTemplateId(model.getTemplate().getId());
+        dto.setAuditId(model.getAudit().getId());
         dto.setFavorite(model.isFavorite());
         dto.setCreatedAt(model.getCreatedAt());
         dto.setUpdatedAt(model.getUpdatedAt());
@@ -27,12 +27,12 @@ public class AuditTemplateFavoriteMapper {
         company.setId(dto.getCompanyId());
 
         AuditModel template = new AuditModel();
-        template.setId(dto.getTemplateId());
+        template.setId(dto.getAuditId());
 
         AuditTemplateFavoriteModel entity = new AuditTemplateFavoriteModel();
         entity.setId(dto.getId());
         entity.setCompany(company);
-        entity.setTemplate(template);
+        entity.setAudit(template);
         entity.setFavorite(dto.isFavorite());
         return entity;
     }
