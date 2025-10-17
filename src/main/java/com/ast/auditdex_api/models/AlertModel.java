@@ -23,7 +23,7 @@ import java.time.ZonedDateTime;
                 @Index(name = "idx_alert_execution_id", columnList = "execution_id"),
                 @Index(name = "idx_alert_company_id", columnList = "company_id"),
                 @Index(name = "idx_alert_user_id", columnList = "user_id"),
-                @Index(name = "idx_alert_read", columnList = "read"),
+                @Index(name = "idx_alert_is_read", columnList = "is_read"),
                 @Index(name = "idx_alert_created_at", columnList = "createdAt")
         }
 )
