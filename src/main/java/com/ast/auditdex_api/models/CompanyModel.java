@@ -26,10 +26,6 @@ public class CompanyModel {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    private String address;
-    private String phone;
-    private String email;
-
     @Column(nullable = false)
     private Boolean active = true;
 

@@ -57,9 +57,6 @@ public class CompanyServiceImpl implements CompanyService {
                 .orElseThrow(() -> new RuntimeException("Compañía no encontrada con ID " + companyDTO.getId()));
 
         existing.setName(companyDTO.getName());
-        existing.setAddress(companyDTO.getAddress());
-        existing.setPhone(companyDTO.getPhone());
-        existing.setEmail(companyDTO.getEmail());
 
         CompanyModel updated = companyRepository.save(existing);
         return CompanyMapper.toDTO(updated);
