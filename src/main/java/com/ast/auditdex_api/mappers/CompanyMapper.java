@@ -10,7 +10,8 @@ public class CompanyMapper {
         return new CompanyDTO(
                 company.getId(),
                 company.getName(),
-                company.getActive()
+                company.getActive(),
+                company.getCreatedAt()
         );
     }
 
