@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
         }
 
-        UserModel updated = userRepository.save(entity);
+        UserModel updated = userRepository.save(existing);
         return UserMapper.toDTO(updated);
     }
 
