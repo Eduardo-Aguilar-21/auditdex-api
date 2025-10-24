@@ -1,5 +1,6 @@
 package com.ast.auditdex_api.dto;
 
+import com.ast.auditdex_api.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,6 @@ public class UserDTO {
     private String name;
     private String email;
     private Long companyId;
+    private String companyName;
+    private Role role;
 }
