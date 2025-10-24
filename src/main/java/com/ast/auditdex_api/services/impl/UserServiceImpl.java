@@ -3,6 +3,7 @@ package com.ast.auditdex_api.services.impl;
 import com.ast.auditdex_api.dto.UserDTO;
 import com.ast.auditdex_api.mappers.UserMapper;
 import com.ast.auditdex_api.models.UserModel;
+import com.ast.auditdex_api.repositories.CompanyRepository;
 import com.ast.auditdex_api.repositories.UserRepository;
 import com.ast.auditdex_api.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
 
     @Override
     public Optional<UserDTO> findById(Long id) {
@@ -41,6 +43,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO save(UserDTO userDTO) {
         UserModel entity = UserMapper.toEntity(userDTO);
+
+        if (userDTO.getCompanyId() == null) {
+            throw new IllegalArgumentException("companyId no puede ser nulo");
+        }
+
+        var company = companyRepository.findById(userDTO.getCompanyId())
+                .orElseThrow(() -> new RuntimeException("Company not found with id " + userDTO.getCompanyId()));
+        entity.setCompany(company);
+
         UserModel saved = userRepository.save(entity);
         return UserMapper.toDTO(saved);
     }
@@ -56,6 +67,11 @@ public class UserServiceImpl implements UserService {
         }
 
         UserModel entity = UserMapper.toEntity(userDTO);
+
+        var company = companyRepository.findById(userDTO.getCompanyId())
+                .orElseThrow(() -> new RuntimeException("Company not found with id " + userDTO.getCompanyId()));
+        entity.setCompany(company);
+
         UserModel updated = userRepository.save(entity);
         return UserMapper.toDTO(updated);
     }
