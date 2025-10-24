@@ -9,6 +9,7 @@ import com.ast.auditdex_api.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Optional<UserDTO> findById(Long id) {
@@ -48,6 +50,12 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("companyId no puede ser nulo");
         }
 
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
+            entity.setPassword(passwordEncoder.encode(userDTO.getPassword())); // ✅ encriptado
+        } else {
+            throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
+        }
+
         var company = companyRepository.findById(userDTO.getCompanyId())
                 .orElseThrow(() -> new RuntimeException("Company not found with id " + userDTO.getCompanyId()));
         entity.setCompany(company);
@@ -62,15 +70,24 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("El ID no puede ser nulo para actualizar.");
         }
 
-        if (!userRepository.existsById(userDTO.getId())) {
-            throw new RuntimeException("Usuario no encontrado con ID " + userDTO.getId());
-        }
+        UserModel existing = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID " + userDTO.getId()));
 
         UserModel entity = UserMapper.toEntity(userDTO);
 
         var company = companyRepository.findById(userDTO.getCompanyId())
                 .orElseThrow(() -> new RuntimeException("Company not found with id " + userDTO.getCompanyId()));
         entity.setCompany(company);
+
+        if (userDTO.getEmail() != null
+                && !userDTO.getEmail().isBlank()
+                && !userDTO.getEmail().equals(existing.getEmail())) {
+            existing.setEmail(userDTO.getEmail());
+        }
+
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
 
         UserModel updated = userRepository.save(entity);
         return UserMapper.toDTO(updated);
