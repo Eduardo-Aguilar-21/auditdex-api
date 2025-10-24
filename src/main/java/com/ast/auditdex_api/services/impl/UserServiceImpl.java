@@ -87,6 +87,8 @@ public class UserServiceImpl implements UserService {
 
         if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
             existing.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        } else {
+            throw new IllegalArgumentException("La contraseña no puede ser nula o vacía");
         }
 
         UserModel updated = userRepository.save(entity);
