@@ -53,13 +53,15 @@ public class CompanyServiceImpl implements CompanyService {
             throw new IllegalArgumentException("El ID no puede ser nulo para actualizar.");
         }
 
-        Optional<CompanyModel> existing = companyRepository.findById(companyDTO.getId());
-        if (existing.isEmpty()) {
-            throw new RuntimeException("Compañía no encontrada con ID " + companyDTO.getId());
-        }
+        CompanyModel existing = companyRepository.findById(companyDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Compañía no encontrada con ID " + companyDTO.getId()));
 
-        CompanyModel entity = CompanyMapper.toEntity(companyDTO);
-        CompanyModel updated = companyRepository.save(entity);
+        existing.setName(companyDTO.getName());
+        existing.setAddress(companyDTO.getAddress());
+        existing.setPhone(companyDTO.getPhone());
+        existing.setEmail(companyDTO.getEmail());
+
+        CompanyModel updated = companyRepository.save(existing);
         return CompanyMapper.toDTO(updated);
     }
 

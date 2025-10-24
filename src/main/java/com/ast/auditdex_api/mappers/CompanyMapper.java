@@ -12,7 +12,8 @@ public class CompanyMapper {
                 company.getName(),
                 company.getAddress(),
                 company.getPhone(),
-                company.getEmail()
+                company.getEmail(),
+                company.getActive()
         );
     }
 
@@ -24,6 +25,7 @@ public class CompanyMapper {
         company.setAddress(dto.getAddress());
         company.setPhone(dto.getPhone());
         company.setEmail(dto.getEmail());
+        company.setActive(dto.getActive());
         return company;
     }
 }
