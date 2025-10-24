@@ -18,7 +18,7 @@ public class UserMapper {
 
         if (entity.getCompany() != null) {
             dto.setCompanyId(entity.getCompany().getId());
-            dto.setCompanyName(entity.getCompany().getName();
+            dto.setCompanyName(entity.getCompany().getName());
         }
 
         return dto;
